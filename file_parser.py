@@ -10,33 +10,35 @@ P 3 2   # 3rd pit coordinates
 
 class File_Parser:
     def __init__(self, world_file):
-        self.world = [[]]
+        self.row_col = []
+        self.agent = []
+        self.wumpus = []
+        self.gold = []
+        self.pits = [[]]
 
         file = open(world_file, 'r')
 
-        # print(file.splitlines())
+        self.row_col = file.readline()
+        self.row_col = self.row_col.rstrip('\r\n')
+        self.row_col = self.row_col.split(" ")
+        # print(self.row_col)
 
-        row_col = file.readline()
-        row_col = row_col.rstrip('\r\n')
-        row_col = row_col.split(" ")
-        print(row_col)
+        self.agent = file.readline()
+        self.agent = self.agent.rstrip('\r\n')
+        self.agent = self.agent.split(" ")
+        # print(self.agent)
 
-        agent = file.readline()
-        agent = agent.rstrip('\r\n')
-        agent = agent.split(" ")
-        print(agent)
+        self.wumpus = file.readline()
+        self.wumpus = self.wumpus.rstrip('\r\n')
+        self.wumpus = self.wumpus.split(" ")
+        # print(self.wumpus)
 
-        wumpus = file.readline()
-        wumpus = wumpus.rstrip('\r\n')
-        wumpus = wumpus.split(" ")
-        print(wumpus)
+        self.gold = file.readline()
+        self.gold = self.gold.rstrip('\r\n')
+        self.gold = self.gold.split(" ")
+        # print(self.gold)
 
-        gold = file.readline()
-        gold = gold.rstrip('\r\n')
-        gold = gold.split(" ")
-        print(gold)
-
-        pits = []
+        self.pits = []
 
         while True:
             pit = file.readline()
@@ -45,12 +47,5 @@ class File_Parser:
             pit = pit.rstrip('\r\n')
             pit = pit.split(" ")
 
-            pits.append(pit)
-        print(pits)
-
-
-
-
-
-
-        #[[0 for i in range(7)] for j in range(6)]
+            self.pits.append(pit)
+        # print(self.pits)
