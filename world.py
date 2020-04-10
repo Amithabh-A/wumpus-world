@@ -20,32 +20,87 @@ class World:
         self.num_rows = int(file_parser.row_col[0])
         self.num_cols = int(file_parser.row_col[1])
 
-        self.world = [[0 for i in range(self.num_cols)] for j in range(self.num_rows)]
-        self.world[int(file_parser.agent[1])][int(file_parser.agent[2])] = file_parser.agent[0]
-        self.world[int(file_parser.wumpus[1])][int(file_parser.wumpus[2])] = file_parser.wumpus[0]
-        self.world[int(file_parser.gold[1])][int(file_parser.gold[2])] = file_parser.gold[0]
+        self.world = [[[] for i in range(self.num_cols)] for j in range(self.num_rows)]
+        self.world[int(file_parser.agent[1])][int(file_parser.agent[2])].append(file_parser.agent[0])
+        self.world[int(file_parser.wumpus[1])][int(file_parser.wumpus[2])].append(file_parser.wumpus[0])
+        self.world[int(file_parser.gold[1])][int(file_parser.gold[2])].append(file_parser.gold[0])
         for pit in file_parser.pits:
-            self.world[int(pit[1])][int(pit[2])] = pit[0]
+            self.world[int(pit[1])][int(pit[2])].append(pit[0])
 
 
     def populate_indicators(self):
-        
+
         for i in range(self.num_rows):
             for j in range(self.num_cols):
+                for k in range(len(self.world[i][j])):
+                    """
+                    if self.world[i][j][k] == 'A':
+                        print("Agent at [" + str(i) + ", " + str(j) + "]")
+                    """
 
-                if self.world[i][j] == 'A':
-                    print("Agent at [" + str(i) + ", " + str(j) + "]")
+                    if self.world[i][j][k] == 'W':
+                        # print("Wumpus at [" + str(i) + ", " + str(j) + "]")
 
-                if self.world[i][j] == 'W':
-                    print("Wumpus at [" + str(i) + ", " + str(j) + "]")
+                        try:
+                            if i-1 >= 0:
+                                if 'S' not in self.world[i-1][j]:
+                                    self.world[i-1][j].append('S')
+                        except IndexError:
+                            pass
 
-                if self.world[i][j] == 'G':
-                    print("Gold at [" + str(i) + ", " + str(j) + "]")
+                        try:
+                            if j+1 < self.num_cols:
+                                if 'S' not in self.world[i][j+1]:
+                                    self.world[i][j+1].append('S')
+                        except IndexError:
+                            pass
 
-                if self.world[i][j] == 'P':
-                    print("Pit at [" + str(i) + ", " + str(j) + "]")
+                        try:
+                            if i+1 < self.num_rows:
+                                if 'S' not in self.world[i+1][j]:
+                                    self.world[i+1][j].append('S')
+                        except IndexError:
+                            pass
 
+                        try:
+                            if j-1 >= 0:
+                                if 'S' not in self.world[i][j-1]:
+                                    self.world[i][j-1].append('S')
+                        except IndexError:
+                            pass
 
+                    """
+                    if self.world[i][j][k] == 'G':
+                        print("Gold at [" + str(i) + ", " + str(j) + "]")
+                    """
 
+                    if self.world[i][j][k] == 'P':
+                        # print("Pit at [" + str(i) + ", " + str(j) + "]")
 
-        # breezes, stenches
+                        try:
+                            if i-1 >= 0:
+                                if 'B' not in self.world[i-1][j]:
+                                    self.world[i-1][j].append('B')
+                        except IndexError:
+                            pass
+
+                        try:
+                            if j+1 < self.num_cols:
+                                if 'B' not in self.world[i][j+1]:
+                                    self.world[i][j+1].append('B')
+                        except IndexError:
+                            pass
+
+                        try:
+                            if i+1 < self.num_rows:
+                                if 'B' not in self.world[i+1][j]:
+                                    self.world[i+1][j].append('B')
+                        except IndexError:
+                            pass
+
+                        try:
+                            if j-1 >= 0:
+                                if 'B' not in self.world[i][j-1]:
+                                    self.world[i][j-1].append('B')
+                        except IndexError:
+                            pass

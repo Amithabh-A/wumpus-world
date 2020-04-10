@@ -7,6 +7,4 @@ world = World()
 world.generate_world("world_1.txt")
 world.populate_indicators()
 
-print(world.world)
-
 print(DataFrame(world.world))
