@@ -5,7 +5,7 @@ class World:
         self.world = [[]]
         self.num_rows = 0
         self.num_cols = 0
-        # print("World generated")
+
 
     def generate_world(self, file_name):
 
@@ -26,7 +26,8 @@ class World:
         self.world[int(file_parser.gold[1])][int(file_parser.gold[2])].append(file_parser.gold[0])
         for pit in file_parser.pits:
             self.world[int(pit[1])][int(pit[2])].append(pit[0])
-
+            
+        self.populate_indicators()
 
     def populate_indicators(self):
 
