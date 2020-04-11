@@ -11,24 +11,19 @@ class Agent:
         # each move makes predictions based on indicators of where pits and wumpus are
         if direction == 'u':
             successful_move = self.move_up()
-            if successful_move:
-                self.add_indicators_to_knowledge()
-                self.mark_tile_visited()
         if direction == 'r':
             successful_move = self.move_right()
-            if successful_move:
-                self.add_indicators_to_knowledge()
-                self.mark_tile_visited()
         if direction == 'd':
             successful_move = self.move_down()
-            if successful_move:
-                self.add_indicators_to_knowledge()
-                self.mark_tile_visited()
         if direction == 'l':
             successful_move = self.move_left()
-            if successful_move:
-                self.add_indicators_to_knowledge()
-                self.mark_tile_visited()
+
+        if successful_move:
+            self.add_indicators_to_knowledge()
+            self.mark_tile_visited()
+            self.predict_wumpus()
+            self.predict_pits()
+
         return successful_move
 
     def add_indicators_to_knowledge(self):
@@ -49,8 +44,84 @@ class Agent:
                 self.world_knowledge[self.world.agent_row][self.world.agent_col].append('W')
 
     def predict_pits(self):
-        ...
+        try:
+            if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
+                if self.world.agent_row-1 >= 0:
+                    if '.' not in self.world.world[self.world.agent_row-1][self.world.agent_col]:
+                        if 'p' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col]:
+                            self.world_knowledge[self.world.agent_row-1][self.world.agent_col].append('p')
+        except IndexError:
+            pass
+
+        try:
+            if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
+                if self.world.agent_col+1 < self.world.num_cols:
+                    if '.' not in self.world.world[self.world.agent_row][self.world.agent_col+1]:
+                        if 'p' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1]:
+                            self.world_knowledge[self.world.agent_row][self.world.agent_col+1].append('p')
+        except IndexError:
+            pass
+
+        try:
+            if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
+                if self.world.agent_row+1 < self.world.num_rows:
+                    if '.' not in self.world.world[self.world.agent_row+1][self.world.agent_col]:
+                        if 'p' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col]:
+                            self.world_knowledge[self.world.agent_row+1][self.world.agent_col].append('p')
+        except IndexError:
+            pass
+
+        try:
+            if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
+                if self.world.agent_col-1 >= 0:
+                    if '.' not in self.world.world[self.world.agent_row][self.world.agent_col-1]:
+                        if 'p' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1]:
+                            self.world_knowledge[self.world.agent_row][self.world.agent_col-1].append('p')
+        except IndexError:
+            pass
+
+
     def predict_wumpus(self):
+        try:
+            if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
+                if self.world.agent_row-1 >= 0:
+                    if '.' not in self.world.world[self.world.agent_row-1][self.world.agent_col]:
+                        if 'w' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col]:
+                            self.world_knowledge[self.world.agent_row-1][self.world.agent_col].append('w')
+        except IndexError:
+            pass
+
+        try:
+            if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
+                if self.world.agent_col+1 < self.world.num_cols:
+                    if '.' not in self.world.world[self.world.agent_row][self.world.agent_col+1]:
+                        if 'w' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1]:
+                            self.world_knowledge[self.world.agent_row][self.world.agent_col+1].append('w')
+        except IndexError:
+            pass
+
+        try:
+            if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
+                if self.world.agent_row+1 < self.world.num_rows:
+                    if '.' not in self.world.world[self.world.agent_row+1][self.world.agent_col]:
+                        if 'w' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col]:
+                            self.world_knowledge[self.world.agent_row+1][self.world.agent_col].append('w')
+        except IndexError:
+            pass
+
+        try:
+            if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
+                if self.world.agent_col-1 >= 0:
+                    if '.' not in self.world.world[self.world.agent_row][self.world.agent_col-1]:
+                        if 'w' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1]:
+                            self.world_knowledge[self.world.agent_row][self.world.agent_col-1].append('w')
+        except IndexError:
+            pass
+
+
+
+
+    def clean_wumpus_predictions(self):
         ...
 
 
@@ -118,9 +189,9 @@ class Agent:
 
 
     def mark_tile_visited(self):
-        if 'v' not in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
-            self.world.world[self.world.agent_row][self.world.agent_col].append('v')
-            self.world_knowledge[self.world.agent_row][self.world.agent_col].append('v')
+        if '.' not in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
+            self.world.world[self.world.agent_row][self.world.agent_col].append('.')
+            self.world_knowledge[self.world.agent_row][self.world.agent_col].append('.')
 
 
     def is_dead(self):
