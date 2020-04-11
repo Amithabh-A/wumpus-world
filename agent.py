@@ -46,6 +46,7 @@ class Agent:
             if 'W' not in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
                 self.world_knowledge[self.world.agent_row][self.world.agent_col].append('W')
 
+
     def predict_pits(self):
         try:
             if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
@@ -93,7 +94,6 @@ class Agent:
                             self.world_knowledge[self.world.agent_row-1][self.world.agent_col].append('w')
         except IndexError:
             pass
-
         try:
             if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
                 if self.world.agent_col+1 < self.world.num_cols:
@@ -102,7 +102,6 @@ class Agent:
                             self.world_knowledge[self.world.agent_row][self.world.agent_col+1].append('w')
         except IndexError:
             pass
-
         try:
             if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
                 if self.world.agent_row+1 < self.world.num_rows:
@@ -111,7 +110,6 @@ class Agent:
                             self.world_knowledge[self.world.agent_row+1][self.world.agent_col].append('w')
         except IndexError:
             pass
-
         try:
             if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
                 if self.world.agent_col-1 >= 0:
@@ -129,7 +127,6 @@ class Agent:
             for j in range(self.world.num_cols):
                 if 'S' in self.world_knowledge[i][j]:
                     self.num_stenches += 1
-
                 if 'w' in self.world_knowledge[i][j]:
                     try:
                         if i-1 >= 0:
