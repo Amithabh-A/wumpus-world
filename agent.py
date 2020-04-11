@@ -6,29 +6,30 @@ class Agent:
         self.mark_tile_visited()
 
     def move(self, direction):
-    
+
+        successful_move = False
         # each move makes predictions based on indicators of where pits and wumpus are
         if direction == 'u':
             successful_move = self.move_up()
             if successful_move:
                 self.add_indicators_to_knowledge()
-            return successful_move
+                self.mark_tile_visited()
         if direction == 'r':
             successful_move = self.move_right()
             if successful_move:
                 self.add_indicators_to_knowledge()
-            return successful_move
+                self.mark_tile_visited()
         if direction == 'd':
             successful_move = self.move_down()
             if successful_move:
                 self.add_indicators_to_knowledge()
-            return successful_move
+                self.mark_tile_visited()
         if direction == 'l':
             successful_move = self.move_left()
             if successful_move:
                 self.add_indicators_to_knowledge()
-            return successful_move
-        return False
+                self.mark_tile_visited()
+        return successful_move
 
     def add_indicators_to_knowledge(self):
         if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
@@ -60,7 +61,6 @@ class Agent:
                 self.remove_agent()
                 self.world.agent_row -= 1
                 self.add_agent()
-                self.mark_tile_visited()
                 return True
             else:
                 return False
@@ -74,7 +74,6 @@ class Agent:
                 self.remove_agent()
                 self.world.agent_col += 1
                 self.add_agent()
-                self.mark_tile_visited()
                 return True
             else:
                 return False
@@ -88,7 +87,6 @@ class Agent:
                 self.remove_agent()
                 self.world.agent_row += 1
                 self.add_agent()
-                self.mark_tile_visited()
                 return True
             else:
                 return False
@@ -102,7 +100,6 @@ class Agent:
                 self.remove_agent()
                 self.world.agent_col -= 1
                 self.add_agent()
-                self.mark_tile_visited()
                 return True
             else:
                 return False
@@ -119,10 +116,12 @@ class Agent:
         self.world.world[self.world.agent_row][self.world.agent_col].append('A')
         self.world_knowledge[self.world.agent_row][self.world.agent_col].append('A')
 
+
     def mark_tile_visited(self):
         if 'v' not in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
             self.world.world[self.world.agent_row][self.world.agent_col].append('v')
             self.world_knowledge[self.world.agent_row][self.world.agent_col].append('v')
+
 
     def is_dead(self):
         if 'W' in self.world.world[self.world.agent_row][self.world.agent_col]:
