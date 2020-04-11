@@ -3,6 +3,7 @@ class Agent:
         self.world = world
         self.world_knowledge = [[[] for i in range(self.world.num_cols)] for j in range(self.world.num_rows)]
         self.world_knowledge[self.world.agent_row][self.world.agent_col].append('A')
+        self.num_stenches = 0
         self.mark_tile_visited()
 
     def move(self, direction):
@@ -23,6 +24,8 @@ class Agent:
             self.mark_tile_visited()
             self.predict_wumpus()
             self.predict_pits()
+            self.clean_predictions()
+            self.confirm_wumpus_knowledge()
 
         return successful_move
 
@@ -119,11 +122,116 @@ class Agent:
             pass
 
 
+    def clean_predictions(self):
+        self.num_stenches = 0
+
+        for i in range(self.world.num_rows):
+            for j in range(self.world.num_cols):
+                if 'S' in self.world_knowledge[i][j]:
+                    self.num_stenches += 1
+
+                if 'w' in self.world_knowledge[i][j]:
+                    try:
+                        if i-1 >= 0:
+                            if '.' in self.world_knowledge[i-1][j]:
+                                if 'S' not in self.world_knowledge[i-1][j]:
+                                    self.world_knowledge[i][j].remove('w')
+                                    self.world_knowledge[i][j].append('nw')
+                    except IndexError:
+                        pass
+                    try:
+                        if j+1 < self.world.num_cols:
+                            if '.' in self.world_knowledge[i][j+1]:
+                                if 'S' not in self.world_knowledge[i][j+1]:
+                                    self.world_knowledge[i][j].remove('w')
+                                    self.world_knowledge[i][j].append('nw')
+                    except IndexError:
+                        pass
+                    try:
+                        if i+1 < self.world.num_rows:
+                            if '.' in self.world_knowledge[i+1][j]:
+                                if 'S' not in self.world_knowledge[i+1][j]:
+                                    self.world_knowledge[i][j].remove('w')
+                                    self.world_knowledge[i][j].append('nw')
+                    except IndexError:
+                        pass
+                    try:
+                        if j-1 >= 0:
+                            if '.' in self.world_knowledge[i][j-1]:
+                                if 'S' not in self.world_knowledge[i][j-1]:
+                                    self.world_knowledge[i][j].remove('w')
+                                    self.world_knowledge[i][j].append('nw')
+                    except IndexError:
+                        pass
+
+                if 'p' in self.world_knowledge[i][j]:
+                    try:
+                        if i-1 >= 0:
+                            if '.' in self.world_knowledge[i-1][j]:
+                                if 'B' not in self.world_knowledge[i-1][j]:
+                                    self.world_knowledge[i][j].remove('p')
+                                    self.world_knowledge[i][j].append('np')
+                    except IndexError:
+                        pass
+                    try:
+                        if j+1 < self.world.num_cols:
+                            if '.' in self.world_knowledge[i][j+1]:
+                                if 'B' not in self.world_knowledge[i][j+1]:
+                                    self.world_knowledge[i][j].remove('p')
+                                    self.world_knowledge[i][j].append('np')
+                    except IndexError:
+                        pass
+                    try:
+                        if i+1 < self.world.num_rows:
+                            if '.' in self.world_knowledge[i+1][j]:
+                                if 'B' not in self.world_knowledge[i+1][j]:
+                                    self.world_knowledge[i][j].remove('p')
+                                    self.world_knowledge[i][j].append('np')
+                    except IndexError:
+                        pass
+                    try:
+                        if j-1 >= 0:
+                            if '.' in self.world_knowledge[i][j-1]:
+                                if 'B' not in self.world_knowledge[i][j-1]:
+                                    self.world_knowledge[i][j].remove('p')
+                                    self.world_knowledge[i][j].append('np')
+                    except IndexError:
+                        pass
 
 
-    def clean_wumpus_predictions(self):
-        ...
+    def confirm_wumpus_knowledge(self):
+        for i in range(self.world.num_rows):
+            for j in range(self.world.num_cols):
+                if 'w' in self.world_knowledge[i][j]:
+                    stenches_around = 0
+                    try:
+                        if i-1 >= 0:
+                            if 'S' in self.world_knowledge[i-1][j]:
+                                stenches_around += 1
+                    except IndexError:
+                        pass
+                    try:
+                        if j+1 < self.world.num_cols:
+                            if 'S' in self.world_knowledge[i][j+1]:
+                                stenches_around += 1
+                    except IndexError:
+                        pass
+                    try:
+                        if i+1 < self.world.num_rows:
+                            if 'S' in self.world_knowledge[i+1][j]:
+                                stenches_around += 1
+                    except IndexError:
+                        pass
+                    try:
+                        if j-1 >= 0:
+                            if 'S' in self.world_knowledge[i][j-1]:
+                                stenches_around += 1
+                    except IndexError:
+                        pass
 
+                    if stenches_around < self.num_stenches:
+                        self.world_knowledge[i][j].remove('w')
+                        self.world_knowledge[i][j].append('nw')
 
 
     def move_up(self):
