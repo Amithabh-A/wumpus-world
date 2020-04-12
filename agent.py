@@ -1,15 +1,77 @@
+from pandas import *
+
 class Agent:
     def __init__(self, world):
         self.world = world
         self.world_knowledge = [[[] for i in range(self.world.num_cols)] for j in range(self.world.num_rows)]
         self.world_knowledge[self.world.agent_row][self.world.agent_col].append('A')
         self.num_stenches = 0
+        self.path_out_of_cave = [[self.world.agent_row, self.world.agent_col]]
         self.mark_tile_visited()
+        self.found_gold = False # self.exit_cave(found_gold)
+
+        # create an exit_cave() function
+        """
+        if you move up, try to move up, right, left... if unsuccessful move down (go back)
+        if you move right, try to move right, up, down... if unsuccessful move left (go back)
+        if you move down, try to move down, right, left... if unsuccessful move up (go back)
+        if you try to move left, try to move left, up, down... if unsuccessful move right (go back)
+        """
+    def explore(self):
+        last_move = ''
+        while self.found_gold == False:
+
+            if self.move('u') and last_move != 'u':
+                last_move = 'u'
+                if self.move('u'):
+                    pass
+                elif self.move('r'):
+                    pass
+                elif self.move('l'):
+                    pass
+                elif self.move('d'):
+                    pass
+                    
+            elif self.move('r') and last_move != 'r':
+                if self.move('r'):
+                    pass
+                elif self.move('u'):
+                    pass
+                elif self.move('d'):
+                    pass
+                elif self.move('l'):
+                    pass
+                last_move = 'r'
+
+            elif self.move('d') and last_move != 'd':
+                if self.move('d'):
+                    pass
+                elif self.move('r'):
+                    pass
+                elif self.move('l'):
+                    pass
+                elif self.move('u'):
+                    pass
+                last_move = 'd'
+
+            elif self.move('l') and last_move != 'l':
+                if self.move('l'):
+                    pass
+                elif self.move('u'):
+                    pass
+                elif self.move('d'):
+                    pass
+                elif self.move('r'):
+                    pass
+                last_move = 'l'
+
+
+
+
 
     def move(self, direction):
 
         successful_move = False
-
         if direction == 'u':
             if self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
                 successful_move = self.move_up()
@@ -31,6 +93,15 @@ class Agent:
             self.clean_predictions()
             self.confirm_wumpus_knowledge()
 
+            self.path_out_of_cave.append([self.world.agent_row, self.world.agent_col])
+            # print(self.path_out_of_cave)
+
+            print(DataFrame(self.world_knowledge))
+            print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
+            if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
+                print("Gold found! Leaving cave!")
+                self.found_gold = True
+        # print("Successful move: " + str(successful_move))
         return successful_move
 
     def add_indicators_to_knowledge(self):
@@ -316,25 +387,25 @@ class Agent:
     def is_safe_move(self, row, col):
         try:
             if 'w' in self.world_knowledge[row][col]:
-                print("UNSAFE MOVE")
+                # print("UNSAFE MOVE")
                 return False
         except IndexError:
             pass
         try:
             if 'p' in self.world_knowledge[row][col]:
-                print("UNSAFE MOVE")
+                # print("UNSAFE MOVE")
                 return False
         except IndexError:
             pass
         try:
             if 'W' in self.world_knowledge[row][col]:
-                print("UNSAFE MOVE")
+                # print("UNSAFE MOVE")
                 return False
         except IndexError:
             pass
         try:
             if 'P' in self.world_knowledge[row][col]:
-                print("UNSAFE MOVE")
+                # print("UNSAFE MOVE")
                 return False
         except IndexError:
             pass

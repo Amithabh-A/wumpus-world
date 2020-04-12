@@ -24,10 +24,18 @@ agent = Agent(world)
 
 # print(DataFrame(world.world))
 print(DataFrame(agent.world_knowledge))
+print("Agent: [" + str(agent.world.agent_row) + ", " + str(agent.world.agent_col) + "]")
 
+while agent.found_gold == False:
+    agent.explore()
+
+
+
+"""
 while agent.is_dead() == False:
     direction = input("Move (u, r, d, l): ")
     agent.move(direction)
     # print(DataFrame(world.world))
     print(DataFrame(agent.world_knowledge))
     # print("Number of stenches found: " + str(agent.num_stenches))
+"""
