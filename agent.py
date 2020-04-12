@@ -9,15 +9,19 @@ class Agent:
     def move(self, direction):
 
         successful_move = False
-        # each move makes predictions based on indicators of where pits and wumpus are
+
         if direction == 'u':
-            successful_move = self.move_up()
+            if self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
+                successful_move = self.move_up()
         if direction == 'r':
-            successful_move = self.move_right()
+            if self.is_safe_move(self.world.agent_row, self.world.agent_col+1):
+                successful_move = self.move_right()
         if direction == 'd':
-            successful_move = self.move_down()
+            if self.is_safe_move(self.world.agent_row+1, self.world.agent_col):
+                successful_move = self.move_down()
         if direction == 'l':
-            successful_move = self.move_left()
+            if self.is_safe_move(self.world.agent_row, self.world.agent_col-1):
+                successful_move = self.move_left()
 
         if successful_move:
             self.add_indicators_to_knowledge()
@@ -308,3 +312,31 @@ class Agent:
             return True
         else:
             return False
+
+    def is_safe_move(self, row, col):
+        try:
+            if 'w' in self.world_knowledge[row][col]:
+                print("UNSAFE MOVE")
+                return False
+        except IndexError:
+            pass
+        try:
+            if 'p' in self.world_knowledge[row][col]:
+                print("UNSAFE MOVE")
+                return False
+        except IndexError:
+            pass
+        try:
+            if 'W' in self.world_knowledge[row][col]:
+                print("UNSAFE MOVE")
+                return False
+        except IndexError:
+            pass
+        try:
+            if 'P' in self.world_knowledge[row][col]:
+                print("UNSAFE MOVE")
+                return False
+        except IndexError:
+            pass
+
+        return True
