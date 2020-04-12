@@ -26,14 +26,18 @@ agent = Agent(world)
 print(DataFrame(agent.world_knowledge))
 print("Agent: [" + str(agent.world.agent_row) + ", " + str(agent.world.agent_col) + "]")
 
+# Agent Solving
 while agent.exited == False:
     agent.explore()
     if agent.found_gold == True:
         agent.leave_cave()
     break
 
+print("You have exited with the gold!")
+
 
 """
+# Human Solving
 while agent.is_dead() == False:
     direction = input("Move (u, r, d, l): ")
     agent.move(direction)
