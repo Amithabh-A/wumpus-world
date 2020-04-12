@@ -1,3 +1,18 @@
+"""
+Legend:
+. = visited tile
+A = agent
+G = gold
+W = wumpus
+S = stench
+w = potential wumpus
+nw = no wumpus
+P = pit
+B = breeze
+p = potential pit
+np = no pit
+"""
+
 from pandas import *
 
 class Agent:
@@ -12,6 +27,9 @@ class Agent:
         self.world.cave_entrance_col = self.world.agent_col
         self.found_gold = False # self.exit_cave(found_gold)
         self.exited = False
+
+        print(DataFrame(self.world_knowledge))
+        print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
 
     def leave_cave(self):
         for tile in reversed(self.path_out_of_cave):
