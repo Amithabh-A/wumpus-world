@@ -26,9 +26,11 @@ agent = Agent(world)
 print(DataFrame(agent.world_knowledge))
 print("Agent: [" + str(agent.world.agent_row) + ", " + str(agent.world.agent_col) + "]")
 
-while agent.found_gold == False:
+while agent.exited == False:
     agent.explore()
-
+    if agent.found_gold == True:
+        agent.leave_cave()
+    break
 
 
 """

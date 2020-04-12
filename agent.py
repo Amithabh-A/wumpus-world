@@ -8,20 +8,35 @@ class Agent:
         self.num_stenches = 0
         self.path_out_of_cave = [[self.world.agent_row, self.world.agent_col]]
         self.mark_tile_visited()
+        self.world.cave_entrance_row = self.world.agent_row
+        self.world.cave_entrance_col = self.world.agent_col
         self.found_gold = False # self.exit_cave(found_gold)
+        self.exited = False
 
-        # create an exit_cave() function
-        """
-        if you move up, try to move up, right, left... if unsuccessful move down (go back)
-        if you move right, try to move right, up, down... if unsuccessful move left (go back)
-        if you move down, try to move down, right, left... if unsuccessful move up (go back)
-        if you try to move left, try to move left, up, down... if unsuccessful move right (go back)
-        """
+    def leave_cave(self):
+        for tile in reversed(self.path_out_of_cave):
+            if self.world.agent_row-1 == tile[0]:
+                self.move('u')
+            if self.world.agent_row+1 == tile[0]:
+                self.move('d')
+            if self.world.agent_col+1 == tile[1]:
+                self.move('r')
+            if self.world.agent_col-1 == tile[1]:
+                self.move('l')
+
+            if self.world.cave_entrance_row == self.world.agent_row:
+                if self.world.cave_entrance_col == self.world.agent_col:
+                    if self.found_gold == True:
+                        self.exited = True
+                        break
+
     def explore(self):
         last_move = ''
         while self.found_gold == False:
 
             if last_move != 'u' and self.move('u'):
+                if self.found_gold == True:
+                    break
                 if self.move('u'):
                     pass
                 elif self.move('r'):
@@ -33,6 +48,8 @@ class Agent:
                 last_move = 'u'
 
             elif last_move != 'r' and self.move('r'):
+                if self.found_gold == True:
+                    break
                 if self.move('r'):
                     pass
                 elif self.move('u'):
@@ -44,6 +61,8 @@ class Agent:
                 last_move = 'r'
 
             elif last_move != 'd' and self.move('d'):
+                if self.found_gold == True:
+                    break
                 if self.move('d'):
                     pass
                 elif self.move('r'):
@@ -55,6 +74,8 @@ class Agent:
                 last_move = 'd'
 
             elif last_move != 'l' and self.move('l'):
+                if self.found_gold == True:
+                    break
                 if self.move('l'):
                     pass
                 elif self.move('u'):
@@ -90,16 +111,18 @@ class Agent:
             self.clean_predictions()
             self.confirm_wumpus_knowledge()
 
-            self.path_out_of_cave.append([self.world.agent_row, self.world.agent_col])
-            # print(self.path_out_of_cave)
-
             print(DataFrame(self.world_knowledge))
             print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
+            # print("Path out:" + str(self.path_out_of_cave))
             if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
-                print("Gold found! Leaving cave!")
+                print("Gold found! Time to leave!")
                 self.found_gold = True
+
+            if self.found_gold == False:
+                self.path_out_of_cave.append([self.world.agent_row, self.world.agent_col])
         # print("Successful move: " + str(successful_move))
         return successful_move
+
 
     def add_indicators_to_knowledge(self):
         if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
@@ -380,6 +403,7 @@ class Agent:
             return True
         else:
             return False
+
 
     def is_safe_move(self, row, col):
         try:

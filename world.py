@@ -8,6 +8,8 @@ class World:
 
         self.agent_row = 0
         self.agent_col = 0
+        self.cave_entrance_row = 0
+        self.cave_entrance_col = 0
 
 
     def generate_world(self, file_name):
