@@ -21,8 +21,7 @@ class Agent:
         last_move = ''
         while self.found_gold == False:
 
-            if self.move('u') and last_move != 'u':
-                last_move = 'u'
+            if last_move != 'u' and self.move('u'):
                 if self.move('u'):
                     pass
                 elif self.move('r'):
@@ -31,8 +30,9 @@ class Agent:
                     pass
                 elif self.move('d'):
                     pass
-                    
-            elif self.move('r') and last_move != 'r':
+                last_move = 'u'
+
+            elif last_move != 'r' and self.move('r'):
                 if self.move('r'):
                     pass
                 elif self.move('u'):
@@ -43,7 +43,7 @@ class Agent:
                     pass
                 last_move = 'r'
 
-            elif self.move('d') and last_move != 'd':
+            elif last_move != 'd' and self.move('d'):
                 if self.move('d'):
                     pass
                 elif self.move('r'):
@@ -54,7 +54,7 @@ class Agent:
                     pass
                 last_move = 'd'
 
-            elif self.move('l') and last_move != 'l':
+            elif last_move != 'l' and self.move('l'):
                 if self.move('l'):
                     pass
                 elif self.move('u'):
@@ -64,9 +64,6 @@ class Agent:
                 elif self.move('r'):
                     pass
                 last_move = 'l'
-
-
-
 
 
     def move(self, direction):
