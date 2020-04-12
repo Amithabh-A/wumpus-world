@@ -1,9 +1,11 @@
 from tkinter import *
 from agent import Agent
 from world import World
+import time
 
 # creating main tkinter window/toplevel
 master = Tk()
+master.title("Wumpus World")
 
 # 	bg - The normal background color displayed behind the label and indicator.
 
@@ -28,24 +30,23 @@ class Grid_Label():
 world = World()
 world.generate_world("world_1.txt")
 label_grid = [[Grid_Label(i, j) for j in range(world.num_cols)] for i in range(world.num_rows)]
-
 agent = Agent(world, label_grid)
 
-"""
-for i in range(world.num_rows):
-    for j in range(world.num_cols):
-        label_grid[i][j].change_text(agent.world_knowledge[i][j])
-"""
-# Agent Solving
-while agent.exited == False:
-    agent.explore()
-    if agent.found_gold == True:
-        agent.leave_cave()
-    break
+def solve_wumpus_world():
+    # Agent Solving
+    while agent.exited == False:
+        agent.explore()
+        if agent.found_gold == True:
+            agent.leave_cave()
+        break
+    print("You have exited with the gold!")
+    agent.repaint_world()
+    agent.world_knowledge[agent.world.agent_row][agent.world.agent_col].remove('A')
+    time.sleep(1.5)
+    agent.repaint_world()
 
-print("You have exited with the gold!")
 
+start = Button(master, text="Start", command=solve_wumpus_world)
+start.grid(row = 0, column = len(label_grid[0]), sticky = W, pady = 1)
 
-# infinite loop which can be terminated by keyboard
-# or mouse interrupt
 mainloop()

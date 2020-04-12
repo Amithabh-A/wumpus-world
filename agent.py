@@ -27,11 +27,36 @@ class Agent:
         self.world.cave_entrance_row = self.world.agent_row
         self.world.cave_entrance_col = self.world.agent_col
         self.found_gold = False # self.exit_cave(found_gold)
+        self.took_gold = False
         self.exited = False
         self.label_grid = label_grid
 
+        self.repaint_world()
         print(DataFrame(self.world_knowledge))
         print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
+
+
+    def repaint_world(self):
+        for i in range(self.world.num_rows):
+            for j in range(self.world.num_cols):
+                updated_text = []
+                if 'A' in self.world_knowledge[i][j]:
+                    updated_text.append('A')
+                if 'w' in self.world_knowledge[i][j]:
+                    updated_text.append('W')
+                if 'p' in self.world_knowledge[i][j]:
+                    updated_text.append('P')
+                if 'B' in self.world_knowledge[i][j]:
+                    updated_text.append('B')
+                if 'S' in self.world_knowledge[i][j]:
+                    updated_text.append('S')
+                if 'G' in self.world_knowledge[i][j]:
+                    updated_text.append('G')
+
+                self.label_grid[i][j].change_text(updated_text)
+                self.label_grid[i][j].label.update()
+        # print("repainted")
+
 
     def leave_cave(self):
         for tile in reversed(self.path_out_of_cave):
@@ -49,6 +74,7 @@ class Agent:
                     if self.found_gold == True:
                         self.exited = True
                         break
+
 
     def explore(self):
         last_move = ''
@@ -109,6 +135,13 @@ class Agent:
 
     def move(self, direction):
 
+        self.repaint_world()
+
+        if self.found_gold == True and self.took_gold == False:
+            self.took_gold == True
+            if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
+                self.world_knowledge[self.world.agent_row][self.world.agent_col].remove('G')
+
         successful_move = False
         if direction == 'u':
             if self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
@@ -140,9 +173,10 @@ class Agent:
 
             if self.found_gold == False:
                 self.path_out_of_cave.append([self.world.agent_row, self.world.agent_col])
+
         # print("Successful move: " + str(successful_move))
-            self.label_grid[self.world.agent_row][self.world.agent_col].change_text(self.world_knowledge[self.world.agent_row][self.world.agent_col])
-            time.sleep(1)
+
+            time.sleep(1.5)
 
         return successful_move
 
