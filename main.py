@@ -1,6 +1,5 @@
 from world import World
 from agent import Agent
-from pandas import * # pip install pandas  --  will eventually remove
 
 world = World()
 world.generate_world("world_1.txt")

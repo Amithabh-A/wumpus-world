@@ -13,10 +13,11 @@ p = potential pit
 np = no pit
 """
 
-from pandas import *
+from pandas import * # pip install pandas
+import time
 
 class Agent:
-    def __init__(self, world):
+    def __init__(self, world, label_grid):
         self.world = world
         self.world_knowledge = [[[] for i in range(self.world.num_cols)] for j in range(self.world.num_rows)]
         self.world_knowledge[self.world.agent_row][self.world.agent_col].append('A')
@@ -27,6 +28,7 @@ class Agent:
         self.world.cave_entrance_col = self.world.agent_col
         self.found_gold = False # self.exit_cave(found_gold)
         self.exited = False
+        self.label_grid = label_grid
 
         print(DataFrame(self.world_knowledge))
         print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
@@ -139,6 +141,9 @@ class Agent:
             if self.found_gold == False:
                 self.path_out_of_cave.append([self.world.agent_row, self.world.agent_col])
         # print("Successful move: " + str(successful_move))
+            self.label_grid[self.world.agent_row][self.world.agent_col].change_text(self.world_knowledge[self.world.agent_row][self.world.agent_col])
+            time.sleep(1)
+
         return successful_move
 
 
