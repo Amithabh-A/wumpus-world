@@ -31,15 +31,15 @@ world.generate_world("world_1.txt")
 label_grid = [[Grid_Label(master, i, j) for j in range(world.num_cols)] for i in range(world.num_rows)]
 agent = Agent(world, label_grid)
 
-start = Button(master, text="Start", command= lambda: solve_wumpus_world(master, "world_1.txt"))
+# start = Button(master, text="Start", command= lambda: solve_wumpus_world(master, "world_1.txt"))
 world_1 = Button(master, text="World 1",  command= lambda: solve_wumpus_world(master, "world_1.txt"))
 world_2 = Button(master, text="World 2",  command= lambda: solve_wumpus_world(master, "world_2.txt"))
 world_3 = Button(master, text="World 3",  command= lambda: solve_wumpus_world(master, "world_3.txt"))
 
-start.grid(row = 0, column = len(label_grid[0]), sticky = W, pady = 1)
-world_1.grid(row = 1, column = len(label_grid[0]), sticky = W, pady = 1)
-world_2.grid(row = 2, column = len(label_grid[0]), sticky = W, pady = 1)
-world_3.grid(row = 3, column = len(label_grid[0]), sticky = W, pady = 1)
+# start.grid(row = 0, column = len(label_grid[0]), sticky = W, pady = 1)
+world_1.grid(row = 0, column = len(label_grid[0]), sticky = W, pady = 1)
+world_2.grid(row = 1, column = len(label_grid[0]), sticky = W, pady = 1)
+world_3.grid(row = 2, column = len(label_grid[0]), sticky = W, pady = 1)
 
 
 mainloop()

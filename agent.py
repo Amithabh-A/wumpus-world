@@ -59,9 +59,27 @@ class Agent:
                 self.label_grid[i][j].label.update()
         # print("repainted")
 
+    def go_back_one_tile(self):
+        print(self.path_out_of_cave)
+        # print(self.path_out_of_cave[-1][0])
+
+        if self.world.agent_row-1 == self.path_out_of_cave[-1][0]:
+            self.move('u')
+        if self.world.agent_row+1 == self.path_out_of_cave[-1][0]:
+            self.move('d')
+        if self.world.agent_col+1 ==  self.path_out_of_cave[-1][1]:
+            self.move('r')
+        if self.world.agent_col-1 ==  self.path_out_of_cave[-1][1]:
+            self.move('l')
+
+
+        del self.path_out_of_cave[-1]
+
+
 
     def leave_cave(self):
         for tile in reversed(self.path_out_of_cave):
+            print("Leaving from: " + str(self.path_out_of_cave))
             if self.world.agent_row-1 == tile[0]:
                 self.move('u')
             if self.world.agent_row+1 == tile[0]:
@@ -80,8 +98,64 @@ class Agent:
 
     def explore(self):
         last_move = ''
+        already_moved = False
         while self.found_gold == False:
 
+
+
+            if self.found_gold == True:
+                break
+
+
+
+
+            try:
+                if  '.' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col] and self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
+                    if already_moved == False:
+                        if self.move('u'):
+                            already_moved = True
+
+                    # print(self.path_out_of_cave)
+            except IndexError:
+                pass
+
+            try:
+                if '.' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1] and self.is_safe_move(self.world.agent_row, self.world.agent_col+1):
+                    if already_moved == False:
+                        if self.move('r'):
+                            already_moved = True
+                    # print(self.path_out_of_cave)
+            except IndexError:
+                pass
+
+            try:
+                if '.' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col] and self.is_safe_move(self.world.agent_row+1, self.world.agent_col):
+                    if already_moved == False:
+                        if self.move('d'):
+                            already_moved = True
+                    # print(self.path_out_of_cave)
+            except IndexError:
+                pass
+
+            try:
+                if '.' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1] and self.is_safe_move(self.world.agent_row, self.world.agent_col-1):
+                    if already_moved == False:
+                        if self.move('l'):
+                            already_moved = True
+                    # print(self.path_out_of_cave)
+            except IndexError:
+                pass
+
+            print(already_moved)
+
+            if already_moved == False:
+                self.go_back_one_tile()
+
+
+            already_moved = False
+
+
+            """
             if last_move != 'u' and self.move('u'):
                 if self.found_gold == True:
                     break
@@ -94,45 +168,11 @@ class Agent:
                 elif self.move('d'):
                     pass
                 last_move = 'u'
+            """
 
-            elif last_move != 'r' and self.move('r'):
-                if self.found_gold == True:
-                    break
-                if self.move('r'):
-                    pass
-                elif self.move('u'):
-                    pass
-                elif self.move('d'):
-                    pass
-                elif self.move('l'):
-                    pass
-                last_move = 'r'
 
-            elif last_move != 'd' and self.move('d'):
-                if self.found_gold == True:
-                    break
-                if self.move('d'):
-                    pass
-                elif self.move('r'):
-                    pass
-                elif self.move('l'):
-                    pass
-                elif self.move('u'):
-                    pass
-                last_move = 'd'
 
-            elif last_move != 'l' and self.move('l'):
-                if self.found_gold == True:
-                    break
-                if self.move('l'):
-                    pass
-                elif self.move('u'):
-                    pass
-                elif self.move('d'):
-                    pass
-                elif self.move('r'):
-                    pass
-                last_move = 'l'
+
 
 
     def move(self, direction):
