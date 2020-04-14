@@ -53,7 +53,9 @@ class Agent:
                 if 'G' in self.world_knowledge[i][j]:
                     updated_text.append('G')
 
-                self.label_grid[i][j].change_text(updated_text)
+                updated_str=""
+
+                self.label_grid[i][j].change_text(updated_str.join(updated_text))
                 self.label_grid[i][j].label.update()
         # print("repainted")
 

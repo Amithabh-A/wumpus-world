@@ -1,28 +1,15 @@
 from tkinter import *
 from agent import Agent
 from world import World
+from grid_label import Grid_Label
 import time
 
-master = Tk()
-master.title("Wumpus World")
+def solve_wumpus_world(master, world_file):
+    world = World()
+    world.generate_world(world_file)
+    label_grid = [[Grid_Label(master, i, j) for j in range(world.num_cols)] for i in range(world.num_rows)]
+    agent = Agent(world, label_grid)
 
-class Grid_Label():
-    def __init__(self, i, j):
-        self.text = StringVar()
-        self.label = Label(master, textvariable = self.text, height = 5, width = 11, relief = RIDGE, bg = "gray30", fg = "white", font = "Helvetica 14 bold")
-        self.label.grid(row = i, column = j, sticky = W, pady = 1)
-        self.row = i
-        self.col = j
-    def change_text(self, updated_text):
-        self.text.set(str(updated_text))
-
-
-world = World()
-world.generate_world("world_1.txt")
-label_grid = [[Grid_Label(i, j) for j in range(world.num_cols)] for i in range(world.num_rows)]
-agent = Agent(world, label_grid)
-
-def solve_wumpus_world():
     # Agent Solving
     while agent.exited == False:
         agent.explore()
@@ -36,7 +23,23 @@ def solve_wumpus_world():
     agent.repaint_world()
 
 
-start = Button(master, text="Start", command=solve_wumpus_world)
+master = Tk()
+master.title("Wumpus World")
+
+world = World()
+world.generate_world("world_1.txt")
+label_grid = [[Grid_Label(master, i, j) for j in range(world.num_cols)] for i in range(world.num_rows)]
+agent = Agent(world, label_grid)
+
+start = Button(master, text="Start", command= lambda: solve_wumpus_world(master, "world_1.txt"))
+world_1 = Button(master, text="World 1",  command= lambda: solve_wumpus_world(master, "world_1.txt"))
+world_2 = Button(master, text="World 2",  command= lambda: solve_wumpus_world(master, "world_2.txt"))
+world_3 = Button(master, text="World 3",  command= lambda: solve_wumpus_world(master, "world_3.txt"))
+
 start.grid(row = 0, column = len(label_grid[0]), sticky = W, pady = 1)
+world_1.grid(row = 1, column = len(label_grid[0]), sticky = W, pady = 1)
+world_2.grid(row = 2, column = len(label_grid[0]), sticky = W, pady = 1)
+world_3.grid(row = 3, column = len(label_grid[0]), sticky = W, pady = 1)
+
 
 mainloop()
