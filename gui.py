@@ -3,29 +3,19 @@ from agent import Agent
 from world import World
 import time
 
-# creating main tkinter window/toplevel
 master = Tk()
 master.title("Wumpus World")
-
-# 	bg - The normal background color displayed behind the label and indicator.
-
-"""
-l1 = Label(master, text = "A", height = 5, width = 11, relief=RIDGE)
-l2 = Label(master, text = "W", height = 5, width = 11, relief=RIDGE)
-l3 = Label(master, text = "S", height = 5, width = 11, relief=RIDGE)
-l4 = Label(master, text = "P", height = 5, width = 11, relief=RIDGE)
-"""
-
 
 class Grid_Label():
     def __init__(self, i, j):
         self.text = StringVar()
-        self.label = Label(master, textvariable = self.text, height = 5, width = 11, relief = RIDGE)
+        self.label = Label(master, textvariable = self.text, height = 5, width = 11, relief = RIDGE, bg = "gray30", fg = "white", font = "Helvetica 14 bold")
         self.label.grid(row = i, column = j, sticky = W, pady = 1)
         self.row = i
         self.col = j
     def change_text(self, updated_text):
         self.text.set(str(updated_text))
+
 
 world = World()
 world.generate_world("world_1.txt")
