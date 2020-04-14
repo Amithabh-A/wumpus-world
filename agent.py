@@ -33,7 +33,7 @@ class Agent:
 
         self.repaint_world()
         print(DataFrame(self.world_knowledge))
-        print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
+        # print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
 
 
     def repaint_world(self):
@@ -56,11 +56,13 @@ class Agent:
                 updated_str=""
 
                 self.label_grid[i][j].change_text(updated_str.join(updated_text))
+                if '.' in self.world_knowledge[i][j]:
+                    self.label_grid[i][j].label.config(bg="gray40")
                 self.label_grid[i][j].label.update()
         # print("repainted")
 
     def go_back_one_tile(self):
-        print(self.path_out_of_cave)
+        # print(self.path_out_of_cave)
         # print(self.path_out_of_cave[-1][0])
 
         if self.world.agent_row-1 == self.path_out_of_cave[-1][0]:
@@ -79,7 +81,7 @@ class Agent:
 
     def leave_cave(self):
         for tile in reversed(self.path_out_of_cave):
-            print("Leaving from: " + str(self.path_out_of_cave))
+            # print("Leaving from: " + str(self.path_out_of_cave))
             if self.world.agent_row-1 == tile[0]:
                 self.move('u')
             if self.world.agent_row+1 == tile[0]:
@@ -146,7 +148,7 @@ class Agent:
             except IndexError:
                 pass
 
-            print(already_moved)
+            # print(already_moved)
 
             if already_moved == False:
                 self.go_back_one_tile()
@@ -169,10 +171,6 @@ class Agent:
                     pass
                 last_move = 'u'
             """
-
-
-
-
 
 
     def move(self, direction):
@@ -207,7 +205,7 @@ class Agent:
             self.confirm_wumpus_knowledge()
 
             print(DataFrame(self.world_knowledge))
-            print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
+            # print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
             # print("Path out:" + str(self.path_out_of_cave))
             if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
                 print("You found the gold! Time to leave!")
