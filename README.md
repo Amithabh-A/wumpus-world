@@ -2,7 +2,7 @@
 
 Running the program:
 
-Navigate to the directory containing the Python files, open a terminal, and type:
+Open a terminal then navigate to the directory containing the Python files and type:
 ```
 python gui.py
 ```
