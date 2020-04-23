@@ -2,9 +2,8 @@
 
 Running the program:
 
-Open a terminal then navigate to the directory containing the Python files and type:
+- Open a terminal then navigate to the directory containing the Python files and type:
 ```
 python gui.py
 ```
-
-developed using Python 3.7.6
+- If the code will not run, then you may need to install [Python 3.7.6](https://www.python.org/downloads/release/python-376/)
