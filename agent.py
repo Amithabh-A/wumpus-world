@@ -13,7 +13,7 @@ p = potential pit
 np = no pit
 """
 
-from pandas import * # pip install pandas
+# from pandas import * # pip install pandas
 import time
 
 class Agent:
@@ -32,7 +32,7 @@ class Agent:
         self.label_grid = label_grid
 
         self.repaint_world()
-        print(DataFrame(self.world_knowledge))
+        # print(DataFrame(self.world_knowledge))
         # print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
 
 
@@ -204,11 +204,11 @@ class Agent:
             self.clean_predictions()
             self.confirm_wumpus_knowledge()
 
-            print(DataFrame(self.world_knowledge))
+            # print(DataFrame(self.world_knowledge))
             # print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
             # print("Path out:" + str(self.path_out_of_cave))
             if 'G' in self.world_knowledge[self.world.agent_row][self.world.agent_col]:
-                print("You found the gold! Time to leave!")
+                # print("You found the gold! Time to leave!")
                 self.found_gold = True
 
             if self.found_gold == False:

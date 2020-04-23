@@ -1,5 +1,5 @@
 from file_parser import File_Parser
-from pandas import *
+# from pandas import *
 
 class World:
     def __init__(self):
@@ -38,7 +38,7 @@ class World:
         for pit in file_parser.pits:
             self.world[int(pit[1])][int(pit[2])].append(pit[0])
 
-        print(DataFrame(self.world))
+        # print(DataFrame(self.world))
 
 
         self.populate_indicators()
