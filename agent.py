@@ -103,13 +103,8 @@ class Agent:
         already_moved = False
         while self.found_gold == False:
 
-
-
             if self.found_gold == True:
                 break
-
-
-
 
             try:
                 if  '.' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col] and self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
