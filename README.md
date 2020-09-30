@@ -21,24 +21,33 @@ behavior makes the explorer a knowledge-based agent.
 
 ## World Navigation Example:
 
-The following figures will be used to explain the agent’s ability to gather knowledge from its sensors, store that knowledge, then make predictions about the locations of threats throughout the cave.
+The following figures will be used to explain the agent’s ability to gather knowledge from its sensors, store that knowledge, then make predictions about the locations of threats throughout the cave.<br>
+
+---
 
 #### Figure 1
-The agent, represented by ‘A’, enters the cave from the bottom left [3, 0]. Upon entering the cave, the agent does not perceive any threat indicators.
+The agent, represented by ‘A’, enters the cave from the bottom left [3, 0]. Upon entering the cave, the agent does not perceive any threat indicators.<br>
 ![Figure 1](https://github.com/alexander-bachmann/wumpus-world/blob/master/README_images/figure_1.png?raw=true)
 
+--- 
+
 #### Figure 2
-The agent smelled a stench [2, 0], represented by ‘S’, indicating that the Wumpus must be in an adjacent tile [1, 0] & [2, 1]. From this indicator, the agent predicts all potential locations of the Wumpus and stores that information in its knowledge base.
+The agent smelled a stench [2, 0], represented by ‘S’, indicating that the Wumpus must be in an adjacent tile [1, 0] & [2, 1]. From this indicator, the agent predicts all potential locations of the Wumpus and stores that information in its knowledge base.<br>
 ![Figure 2](https://github.com/alexander-bachmann/wumpus-world/blob/master/README_images/figure_2.png?raw=true)
 
+---
+
 #### Figure 3
-The agent was forced to backtrack [3, 0] because there was no perceptibly safe move given its current knowledge base.
+The agent was forced to backtrack [3, 0] because there was no perceptibly safe move given its current knowledge base.<br>
 ![Figure 3](https://github.com/alexander-bachmann/wumpus-world/blob/master/README_images/figure_3.png?raw=true)
 
+---
+
 #### Figure 4
-The agent traveled one tile to the right [3, 1]. In this tile, the agent sensed a breeze indicating that a pit could only be in [3, 2] because a breeze was not sensed when the agent visited [2, 0] in Fig. 2. The agent also further updated its knowledge of the cave by removing its prediction of there being a Wumpus in [2, 1]; the agent was able to remove this prediction because it did not smell a stench in its newly visited tile (all indicators must be adjacent to the possible threat).
+The agent traveled one tile to the right [3, 1]. In this tile, the agent sensed a breeze indicating that a pit could only be in [3, 2] because a breeze was not sensed when the agent visited [2, 0] in Fig. 2. The agent also further updated its knowledge of the cave by removing its prediction of there being a Wumpus in [2, 1]; the agent was able to remove this prediction because it did not smell a stench in its newly visited tile (all indicators must be adjacent to the possible threat).<br>
 ![Figure 4](https://github.com/alexander-bachmann/wumpus-world/blob/master/README_images/figure_4.png?raw=true)
 
+---
 
 ## Extension:
 
