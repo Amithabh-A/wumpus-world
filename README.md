@@ -1,5 +1,9 @@
 # wumpus-world
 
+
+<a href="report.pdf" class="image fit"><img src="" alt=""></a>
+
+
 Running the program:
 
 - Open a terminal then navigate to the directory containing the Python files and type:
