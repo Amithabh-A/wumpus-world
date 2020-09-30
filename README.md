@@ -1,13 +1,37 @@
-# wumpus-world
+# Wumpus World Simulation
 
+Wumpus World is the representation of a simple world where an explorer searches a dark,
+dangerous cave in search for a bounty of gold. In this cave, there are two threats to the explorer’s life:
+falling in bottomless pits and being slain by the Wumpus. The explorer’s goal is to find the gold then
+exit safely by backtracking through the cave. Typically, the cave is represented by a 4×4 grid or 16
+rooms. Each room will have indicators that can be detected by the explorer. If the explorer smells a
+stench that means that Wumpus may be in an adjacent tile. If the explorer feels a breeze that means that
+a bottomless pit may be in an adjacent tile. If the agent sees glitter that means that there is gold in the
+current room and upon retrieval of the gold, the explorer is allowed to leave the cave. While exploring
+the cave, the explorer gathers knowledge and acts according to the gathered knowledge; this type of
+behavior makes the explorer a knowledge-based agent.
 
-<a href="report.pdf" class="image fit"><img src="" alt=""></a>
+### Knowledge Representation
+- A = Agent
+- G = Gold
+- W = Wumpus
+- S = Stench
+- P = Pit
+- B = Breeze
 
-
-Running the program:
-
-- Open a terminal then navigate to the directory containing the Python files and type:
 ```
-python gui.py
+4 4
+A 3 0
+W 1 0
+G 1 1
+P 0 3
+P 1 2
+P 3 2
 ```
-- If the code will not run, then you may need to install [Python 3.7.6](https://www.python.org/downloads/release/python-376/)
+
+
+- Execution:
+```
+$ python gui.py
+```
+- Requires [Python 3.7.x](https://www.python.org/downloads/release/python-376/) or later
