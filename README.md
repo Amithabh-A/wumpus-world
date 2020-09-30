@@ -32,7 +32,7 @@ The agent, represented by ‘A’, enters the cave from the bottom left [3, 0]. 
 --- 
 
 #### Figure 2
-The agent smelled a stench [2, 0], represented by ‘S’, indicating that the Wumpus must be in an adjacent tile [1, 0] & [2, 1]. From this indicator, the agent predicts all potential locations of the Wumpus and stores that information in its knowledge base.<br>
+The agent smelled a stench [2, 0], represented by ‘S’, indicating that the Wumpus must be in an adjacent tile [1, 0] or [2, 1]. From this indicator, the agent predicts all potential locations of the Wumpus and stores that information in its knowledge base.<br>
 ![Figure 2](https://github.com/alexander-bachmann/wumpus-world/blob/master/README_images/figure_2.png?raw=true)
 
 ---
