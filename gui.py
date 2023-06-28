@@ -24,14 +24,13 @@ def solve_wumpus_world(master, world_file):
     time.sleep(1.5)
     agent.repaint_world()
 
-
 master = Tk()
 master.title("Wumpus World")
 
 world = World()
-world.generate_world("world_1.txt")
+world.generate_world("world.txt")
 label_grid = [[Grid_Label(master, i, j) for j in range(world.num_cols)] for i in range(world.num_rows)]
 # agent = Agent(world, label_grid)
-solve_wumpus_world(master, "world_1.txt")
+solve_wumpus_world(master, "world.txt")
 
 mainloop()
