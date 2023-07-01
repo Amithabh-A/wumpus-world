@@ -14,7 +14,7 @@ np = no pit
 """
 
 # from pandas import * # pip install pandas
-import time
+#import time
 
 class Agent:
     def __init__(self, world, label_grid):
@@ -61,21 +61,21 @@ class Agent:
                 self.label_grid[i][j].label.update()
         # print("repainted")
 
-    def go_back_one_tile(self):
-        # print(self.path_out_of_cave)
-        # print(self.path_out_of_cave[-1][0])
+    # def go_back_one_tile(self):
+    #     # print(self.path_out_of_cave)
+    #     # print(self.path_out_of_cave[-1][0])
 
-        if self.world.agent_row-1 == self.path_out_of_cave[-1][0]:
-            self.move('u')
-        if self.world.agent_row+1 == self.path_out_of_cave[-1][0]:
-            self.move('d')
-        if self.world.agent_col+1 ==  self.path_out_of_cave[-1][1]:
-            self.move('r')
-        if self.world.agent_col-1 ==  self.path_out_of_cave[-1][1]:
-            self.move('l')
+    #     if self.world.agent_row-1 == self.path_out_of_cave[-1][0]:
+    #         self.move('u')
+    #     if self.world.agent_row+1 == self.path_out_of_cave[-1][0]:
+    #         self.move('d')
+    #     if self.world.agent_col+1 ==  self.path_out_of_cave[-1][1]:
+    #         self.move('r')
+    #     if self.world.agent_col-1 ==  self.path_out_of_cave[-1][1]:
+    #         self.move('l')
 
 
-        del self.path_out_of_cave[-1]
+    #     del self.path_out_of_cave[-1]
 
 
 
@@ -194,10 +194,10 @@ class Agent:
         if successful_move:
             self.add_indicators_to_knowledge()
             self.mark_tile_visited()
-            self.predict_wumpus()
-            self.predict_pits()
-            self.clean_predictions()
-            self.confirm_wumpus_knowledge()
+            #self.predict_wumpus()
+            #self.predict_pits()
+            #self.clean_predictions()
+            #self.confirm_wumpus_knowledge()
 
             # print(DataFrame(self.world_knowledge))
             # print("Agent: [" + str(self.world.agent_row) + ", " + str(self.world.agent_col) + "]")
@@ -211,7 +211,7 @@ class Agent:
 
         # print("Successful move: " + str(successful_move))
 
-            time.sleep(1.5)
+            #time.sleep(1.5)
 
         return successful_move
 
@@ -234,188 +234,188 @@ class Agent:
                 self.world_knowledge[self.world.agent_row][self.world.agent_col].append('W')
 
 
-    def predict_pits(self):
-        try:
-            if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
-                if self.world.agent_row-1 >= 0:
-                    if '.' not in self.world.world[self.world.agent_row-1][self.world.agent_col]:
-                        if 'p' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col]:
-                            self.world_knowledge[self.world.agent_row-1][self.world.agent_col].append('p')
-        except IndexError:
-            pass
+    # def predict_pits(self):
+    #     try:
+    #         if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
+    #             if self.world.agent_row-1 >= 0:
+    #                 if '.' not in self.world.world[self.world.agent_row-1][self.world.agent_col]:
+    #                     if 'p' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col]:
+    #                         self.world_knowledge[self.world.agent_row-1][self.world.agent_col].append('p')
+    #     except IndexError:
+    #         pass
 
-        try:
-            if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
-                if self.world.agent_col+1 < self.world.num_cols:
-                    if '.' not in self.world.world[self.world.agent_row][self.world.agent_col+1]:
-                        if 'p' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1]:
-                            self.world_knowledge[self.world.agent_row][self.world.agent_col+1].append('p')
-        except IndexError:
-            pass
+    #     try:
+    #         if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
+    #             if self.world.agent_col+1 < self.world.num_cols:
+    #                 if '.' not in self.world.world[self.world.agent_row][self.world.agent_col+1]:
+    #                     if 'p' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1]:
+    #                         self.world_knowledge[self.world.agent_row][self.world.agent_col+1].append('p')
+    #     except IndexError:
+    #         pass
 
-        try:
-            if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
-                if self.world.agent_row+1 < self.world.num_rows:
-                    if '.' not in self.world.world[self.world.agent_row+1][self.world.agent_col]:
-                        if 'p' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col]:
-                            self.world_knowledge[self.world.agent_row+1][self.world.agent_col].append('p')
-        except IndexError:
-            pass
+    #     try:
+    #         if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
+    #             if self.world.agent_row+1 < self.world.num_rows:
+    #                 if '.' not in self.world.world[self.world.agent_row+1][self.world.agent_col]:
+    #                     if 'p' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col]:
+    #                         self.world_knowledge[self.world.agent_row+1][self.world.agent_col].append('p')
+    #     except IndexError:
+    #         pass
 
-        try:
-            if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
-                if self.world.agent_col-1 >= 0:
-                    if '.' not in self.world.world[self.world.agent_row][self.world.agent_col-1]:
-                        if 'p' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1]:
-                            self.world_knowledge[self.world.agent_row][self.world.agent_col-1].append('p')
-        except IndexError:
-            pass
-
-
-    def predict_wumpus(self):
-        try:
-            if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
-                if self.world.agent_row-1 >= 0:
-                    if '.' not in self.world.world[self.world.agent_row-1][self.world.agent_col]:
-                        if 'w' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col]:
-                            self.world_knowledge[self.world.agent_row-1][self.world.agent_col].append('w')
-        except IndexError:
-            pass
-        try:
-            if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
-                if self.world.agent_col+1 < self.world.num_cols:
-                    if '.' not in self.world.world[self.world.agent_row][self.world.agent_col+1]:
-                        if 'w' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1]:
-                            self.world_knowledge[self.world.agent_row][self.world.agent_col+1].append('w')
-        except IndexError:
-            pass
-        try:
-            if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
-                if self.world.agent_row+1 < self.world.num_rows:
-                    if '.' not in self.world.world[self.world.agent_row+1][self.world.agent_col]:
-                        if 'w' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col]:
-                            self.world_knowledge[self.world.agent_row+1][self.world.agent_col].append('w')
-        except IndexError:
-            pass
-        try:
-            if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
-                if self.world.agent_col-1 >= 0:
-                    if '.' not in self.world.world[self.world.agent_row][self.world.agent_col-1]:
-                        if 'w' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1]:
-                            self.world_knowledge[self.world.agent_row][self.world.agent_col-1].append('w')
-        except IndexError:
-            pass
+    #     try:
+    #         if 'B' in self.world.world[self.world.agent_row][self.world.agent_col]:
+    #             if self.world.agent_col-1 >= 0:
+    #                 if '.' not in self.world.world[self.world.agent_row][self.world.agent_col-1]:
+    #                     if 'p' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1]:
+    #                         self.world_knowledge[self.world.agent_row][self.world.agent_col-1].append('p')
+    #     except IndexError:
+    #         pass
 
 
-    def clean_predictions(self):
-        self.num_stenches = 0
-
-        for i in range(self.world.num_rows):
-            for j in range(self.world.num_cols):
-                if 'S' in self.world_knowledge[i][j]:
-                    self.num_stenches += 1
-                if 'w' in self.world_knowledge[i][j]:
-                    try:
-                        if i-1 >= 0:
-                            if '.' in self.world_knowledge[i-1][j]:
-                                if 'S' not in self.world_knowledge[i-1][j]:
-                                    self.world_knowledge[i][j].remove('w')
-                                    self.world_knowledge[i][j].append('nw')
-                    except IndexError:
-                        pass
-                    try:
-                        if j+1 < self.world.num_cols:
-                            if '.' in self.world_knowledge[i][j+1]:
-                                if 'S' not in self.world_knowledge[i][j+1]:
-                                    self.world_knowledge[i][j].remove('w')
-                                    self.world_knowledge[i][j].append('nw')
-                    except IndexError:
-                        pass
-                    try:
-                        if i+1 < self.world.num_rows:
-                            if '.' in self.world_knowledge[i+1][j]:
-                                if 'S' not in self.world_knowledge[i+1][j]:
-                                    self.world_knowledge[i][j].remove('w')
-                                    self.world_knowledge[i][j].append('nw')
-                    except IndexError:
-                        pass
-                    try:
-                        if j-1 >= 0:
-                            if '.' in self.world_knowledge[i][j-1]:
-                                if 'S' not in self.world_knowledge[i][j-1]:
-                                    self.world_knowledge[i][j].remove('w')
-                                    self.world_knowledge[i][j].append('nw')
-                    except IndexError:
-                        pass
-
-                if 'p' in self.world_knowledge[i][j]:
-                    try:
-                        if i-1 >= 0:
-                            if '.' in self.world_knowledge[i-1][j]:
-                                if 'B' not in self.world_knowledge[i-1][j]:
-                                    self.world_knowledge[i][j].remove('p')
-                                    self.world_knowledge[i][j].append('np')
-                    except IndexError:
-                        pass
-                    try:
-                        if j+1 < self.world.num_cols:
-                            if '.' in self.world_knowledge[i][j+1]:
-                                if 'B' not in self.world_knowledge[i][j+1]:
-                                    self.world_knowledge[i][j].remove('p')
-                                    self.world_knowledge[i][j].append('np')
-                    except IndexError:
-                        pass
-                    try:
-                        if i+1 < self.world.num_rows:
-                            if '.' in self.world_knowledge[i+1][j]:
-                                if 'B' not in self.world_knowledge[i+1][j]:
-                                    self.world_knowledge[i][j].remove('p')
-                                    self.world_knowledge[i][j].append('np')
-                    except IndexError:
-                        pass
-                    try:
-                        if j-1 >= 0:
-                            if '.' in self.world_knowledge[i][j-1]:
-                                if 'B' not in self.world_knowledge[i][j-1]:
-                                    self.world_knowledge[i][j].remove('p')
-                                    self.world_knowledge[i][j].append('np')
-                    except IndexError:
-                        pass
+    # def predict_wumpus(self):
+    #     try:
+    #         if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
+    #             if self.world.agent_row-1 >= 0:
+    #                 if '.' not in self.world.world[self.world.agent_row-1][self.world.agent_col]:
+    #                     if 'w' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col]:
+    #                         self.world_knowledge[self.world.agent_row-1][self.world.agent_col].append('w')
+    #     except IndexError:
+    #         pass
+    #     try:
+    #         if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
+    #             if self.world.agent_col+1 < self.world.num_cols:
+    #                 if '.' not in self.world.world[self.world.agent_row][self.world.agent_col+1]:
+    #                     if 'w' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1]:
+    #                         self.world_knowledge[self.world.agent_row][self.world.agent_col+1].append('w')
+    #     except IndexError:
+    #         pass
+    #     try:
+    #         if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
+    #             if self.world.agent_row+1 < self.world.num_rows:
+    #                 if '.' not in self.world.world[self.world.agent_row+1][self.world.agent_col]:
+    #                     if 'w' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col]:
+    #                         self.world_knowledge[self.world.agent_row+1][self.world.agent_col].append('w')
+    #     except IndexError:
+    #         pass
+    #     try:
+    #         if 'S' in self.world.world[self.world.agent_row][self.world.agent_col]:
+    #             if self.world.agent_col-1 >= 0:
+    #                 if '.' not in self.world.world[self.world.agent_row][self.world.agent_col-1]:
+    #                     if 'w' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1]:
+    #                         self.world_knowledge[self.world.agent_row][self.world.agent_col-1].append('w')
+    #     except IndexError:
+    #         pass
 
 
-    def confirm_wumpus_knowledge(self):
-        for i in range(self.world.num_rows):
-            for j in range(self.world.num_cols):
-                if 'w' in self.world_knowledge[i][j]:
-                    stenches_around = 0
-                    try:
-                        if i-1 >= 0:
-                            if 'S' in self.world_knowledge[i-1][j]:
-                                stenches_around += 1
-                    except IndexError:
-                        pass
-                    try:
-                        if j+1 < self.world.num_cols:
-                            if 'S' in self.world_knowledge[i][j+1]:
-                                stenches_around += 1
-                    except IndexError:
-                        pass
-                    try:
-                        if i+1 < self.world.num_rows:
-                            if 'S' in self.world_knowledge[i+1][j]:
-                                stenches_around += 1
-                    except IndexError:
-                        pass
-                    try:
-                        if j-1 >= 0:
-                            if 'S' in self.world_knowledge[i][j-1]:
-                                stenches_around += 1
-                    except IndexError:
-                        pass
+    # def clean_predictions(self):
+    #     self.num_stenches = 0
 
-                    if stenches_around < self.num_stenches:
-                        self.world_knowledge[i][j].remove('w')
-                        self.world_knowledge[i][j].append('nw')
+    #     for i in range(self.world.num_rows):
+    #         for j in range(self.world.num_cols):
+    #             if 'S' in self.world_knowledge[i][j]:
+    #                 self.num_stenches += 1
+    #             if 'w' in self.world_knowledge[i][j]:
+    #                 try:
+    #                     if i-1 >= 0:
+    #                         if '.' in self.world_knowledge[i-1][j]:
+    #                             if 'S' not in self.world_knowledge[i-1][j]:
+    #                                 self.world_knowledge[i][j].remove('w')
+    #                                 self.world_knowledge[i][j].append('nw')
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if j+1 < self.world.num_cols:
+    #                         if '.' in self.world_knowledge[i][j+1]:
+    #                             if 'S' not in self.world_knowledge[i][j+1]:
+    #                                 self.world_knowledge[i][j].remove('w')
+    #                                 self.world_knowledge[i][j].append('nw')
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if i+1 < self.world.num_rows:
+    #                         if '.' in self.world_knowledge[i+1][j]:
+    #                             if 'S' not in self.world_knowledge[i+1][j]:
+    #                                 self.world_knowledge[i][j].remove('w')
+    #                                 self.world_knowledge[i][j].append('nw')
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if j-1 >= 0:
+    #                         if '.' in self.world_knowledge[i][j-1]:
+    #                             if 'S' not in self.world_knowledge[i][j-1]:
+    #                                 self.world_knowledge[i][j].remove('w')
+    #                                 self.world_knowledge[i][j].append('nw')
+    #                 except IndexError:
+    #                     pass
+
+    #             if 'p' in self.world_knowledge[i][j]:
+    #                 try:
+    #                     if i-1 >= 0:
+    #                         if '.' in self.world_knowledge[i-1][j]:
+    #                             if 'B' not in self.world_knowledge[i-1][j]:
+    #                                 self.world_knowledge[i][j].remove('p')
+    #                                 self.world_knowledge[i][j].append('np')
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if j+1 < self.world.num_cols:
+    #                         if '.' in self.world_knowledge[i][j+1]:
+    #                             if 'B' not in self.world_knowledge[i][j+1]:
+    #                                 self.world_knowledge[i][j].remove('p')
+    #                                 self.world_knowledge[i][j].append('np')
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if i+1 < self.world.num_rows:
+    #                         if '.' in self.world_knowledge[i+1][j]:
+    #                             if 'B' not in self.world_knowledge[i+1][j]:
+    #                                 self.world_knowledge[i][j].remove('p')
+    #                                 self.world_knowledge[i][j].append('np')
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if j-1 >= 0:
+    #                         if '.' in self.world_knowledge[i][j-1]:
+    #                             if 'B' not in self.world_knowledge[i][j-1]:
+    #                                 self.world_knowledge[i][j].remove('p')
+    #                                 self.world_knowledge[i][j].append('np')
+    #                 except IndexError:
+    #                     pass
+
+
+    # def confirm_wumpus_knowledge(self):
+    #     for i in range(self.world.num_rows):
+    #         for j in range(self.world.num_cols):
+    #             if 'w' in self.world_knowledge[i][j]:
+    #                 stenches_around = 0
+    #                 try:
+    #                     if i-1 >= 0:
+    #                         if 'S' in self.world_knowledge[i-1][j]:
+    #                             stenches_around += 1
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if j+1 < self.world.num_cols:
+    #                         if 'S' in self.world_knowledge[i][j+1]:
+    #                             stenches_around += 1
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if i+1 < self.world.num_rows:
+    #                         if 'S' in self.world_knowledge[i+1][j]:
+    #                             stenches_around += 1
+    #                 except IndexError:
+    #                     pass
+    #                 try:
+    #                     if j-1 >= 0:
+    #                         if 'S' in self.world_knowledge[i][j-1]:
+    #                             stenches_around += 1
+    #                 except IndexError:
+    #                     pass
+
+    #                 if stenches_around < self.num_stenches:
+    #                     self.world_knowledge[i][j].remove('w')
+    #                     self.world_knowledge[i][j].append('nw')
 
 
     def move_up(self):
@@ -524,3 +524,11 @@ class Agent:
             pass
 
         return True
+    def valid_exit(self):
+        if self.found_gold == True:
+            if self.world.agent_row == self.world.cave_entrance_row \
+                and self.world.agent_col == self.world.cave_entrance_col:
+                self.exited = True
+                self.remove_agent()
+                return True
+        return False

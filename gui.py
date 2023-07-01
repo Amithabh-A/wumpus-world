@@ -1,9 +1,16 @@
 from tkinter import *
-from agent import Agent
+from human import Agent
 from world import World
+from keyboard_input import Keyboard_Input
 # from pandas import *
 from grid_label import Grid_Label
-import time
+#import time
+
+
+###########################################################################
+
+#############################################################################################
+
 
 def solve_wumpus_world(master, world_file):
     world = World()
@@ -11,17 +18,39 @@ def solve_wumpus_world(master, world_file):
     # print(DataFrame(world.world))
     label_grid = [[Grid_Label(master, i, j) for j in range(world.num_cols)] for i in range(world.num_rows)]
     agent = Agent(world, label_grid)
-
     # Agent Solving
     while agent.exited == False:
-        agent.explore()
-        if agent.found_gold == True:
-            agent.leave_cave()
-        break
-    # print("You have exited with the gold!")
+        #agent.explore()
+
+        #####################################################
+        key = Keyboard_Input()
+        #print(key.get_key())
+        agent.move(key.get_key())
+        agent.repaint_world()
+
+        if agent.valid_exit() == True:
+            print("hi")
+            break
+        else:
+            print('no')
+
+
+        #####################################################
+
+        # if agent.found_gold == True:
+        #     agent.leave_cave()
+        
+        
+        #break
+    
+    
+    print("You have exited with the gold!")
     agent.repaint_world()
-    agent.world_knowledge[agent.world.agent_row][agent.world.agent_col].remove('A')
-    time.sleep(1.5)
+    try:
+        agent.world_knowledge[agent.world.agent_row][agent.world.agent_col].remove('A')
+    except ValueError:
+        pass
+    # time.sleep(1.5)
     agent.repaint_world()
 
 master = Tk()
