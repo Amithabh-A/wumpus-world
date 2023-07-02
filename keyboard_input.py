@@ -2,14 +2,15 @@ from tkinter import *
 
 class Keyboard_Input:
 
-    def __init__(self,master):
+    #def __init__(self, master):
+    def __init__(self):
         self.global_key_input = None
-        self.root = master
+        self.root = Tk()#master
         self.key_input = StringVar()
         self.root.bind("<KeyPress>", self.on_key_press)
         self.root.focus_set()
-        self.root.update()
-        #self.root.quit()
+        self.root.mainloop()
+        self.root.quit()
 
     def on_key_press(self, event):
         global global_key_input
@@ -37,7 +38,7 @@ class Keyboard_Input:
             print("Exiting application")
             self.root.quit()
         self.root.destroy()
-        #print("Key input:", global_key_input)
+        #print("Key input:", self.global_key_input)
     
     def get_key(self):
         return self.global_key_input

@@ -179,16 +179,16 @@ class Agent:
 
         successful_move = False
         if direction == 'u':
-            if self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
+            #if self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
                 successful_move = self.move_up()
         if direction == 'r':
-            if self.is_safe_move(self.world.agent_row, self.world.agent_col+1):
+            #if self.is_safe_move(self.world.agent_row, self.world.agent_col+1):
                 successful_move = self.move_right()
         if direction == 'd':
-            if self.is_safe_move(self.world.agent_row+1, self.world.agent_col):
+            #if self.is_safe_move(self.world.agent_row+1, self.world.agent_col):
                 successful_move = self.move_down()
         if direction == 'l':
-            if self.is_safe_move(self.world.agent_row, self.world.agent_col-1):
+            #if self.is_safe_move(self.world.agent_row, self.world.agent_col-1):
                 successful_move = self.move_left()
 
         if successful_move:

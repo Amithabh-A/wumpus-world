@@ -13,6 +13,7 @@ from grid_label import Grid_Label
 
 
 def solve_wumpus_world(master, world_file):
+    
     world = World()
     world.generate_world(world_file)
     # print(DataFrame(world.world))
@@ -20,19 +21,24 @@ def solve_wumpus_world(master, world_file):
     agent = Agent(world, label_grid)
     # Agent Solving
     while agent.exited == False:
+        
         #agent.explore()
 
         #####################################################
-        key = Keyboard_Input(master)
+        key = Keyboard_Input()
+        
         #print(key.get_key())
         agent.move(key.get_key())
         agent.repaint_world()
+
+    
 
         if agent.valid_exit() == True:
             print("hi")
             break
         else:
-            print('no')
+            #print('no')
+            pass
 
 
         #####################################################
@@ -56,10 +62,14 @@ def solve_wumpus_world(master, world_file):
 master = Tk()
 master.title("Wumpus World")
 
+
+
 world = World()
 world.generate_world("world.txt")
 label_grid = [[Grid_Label(master, i, j) for j in range(world.num_cols)] for i in range(world.num_rows)]
 # agent = Agent(world, label_grid)
+
+
 solve_wumpus_world(master, "world.txt")
 
 mainloop()
