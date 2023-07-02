@@ -23,7 +23,7 @@ def solve_wumpus_world(master, world_file):
         #agent.explore()
 
         #####################################################
-        key = Keyboard_Input()
+        key = Keyboard_Input(master)
         #print(key.get_key())
         agent.move(key.get_key())
         agent.repaint_world()
