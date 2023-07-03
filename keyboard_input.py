@@ -1,11 +1,21 @@
 from tkinter import *
 
+
+
 class Keyboard_Input:
 
     #def __init__(self, master):
     def __init__(self):
         self.global_key_input = None
         self.root = Tk()#master
+
+        # Get the screen width and height
+        self.screen_width = self.root.winfo_screenwidth()
+        self.screen_height = self.root.winfo_screenheight()
+
+        # Set the window's dimensions and position
+        self.root.geometry("300x200+{}+0".format(self.screen_width - 300))
+
         self.key_input = StringVar()
         self.root.bind("<KeyPress>", self.on_key_press)
         self.root.focus_set()
