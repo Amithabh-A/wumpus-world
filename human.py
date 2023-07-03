@@ -98,58 +98,58 @@ class Agent:
                         break
 
 
-    def explore(self):
-        last_move = ''
-        already_moved = False
-        while self.found_gold == False:
+    # def explore(self):
+    #     last_move = ''
+    #     already_moved = False
+    #     while self.found_gold == False:
 
-            if self.found_gold == True:
-                break
+    #         if self.found_gold == True:
+    #             break
 
-            try:
-                if  '.' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col] and self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
-                    if already_moved == False:
-                        if self.move('u'):
-                            already_moved = True
+    #         try:
+    #             if  '.' not in self.world_knowledge[self.world.agent_row-1][self.world.agent_col] and self.is_safe_move(self.world.agent_row-1, self.world.agent_col):
+    #                 if already_moved == False:
+    #                     if self.move('u'):
+    #                         already_moved = True
 
-                    # print(self.path_out_of_cave)
-            except IndexError:
-                pass
+    #                 # print(self.path_out_of_cave)
+    #         except IndexError:
+    #             pass
 
-            try:
-                if '.' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1] and self.is_safe_move(self.world.agent_row, self.world.agent_col+1):
-                    if already_moved == False:
-                        if self.move('r'):
-                            already_moved = True
-                    # print(self.path_out_of_cave)
-            except IndexError:
-                pass
+    #         try:
+    #             if '.' not in self.world_knowledge[self.world.agent_row][self.world.agent_col+1] and self.is_safe_move(self.world.agent_row, self.world.agent_col+1):
+    #                 if already_moved == False:
+    #                     if self.move('r'):
+    #                         already_moved = True
+    #                 # print(self.path_out_of_cave)
+    #         except IndexError:
+    #             pass
 
-            try:
-                if '.' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col] and self.is_safe_move(self.world.agent_row+1, self.world.agent_col):
-                    if already_moved == False:
-                        if self.move('d'):
-                            already_moved = True
-                    # print(self.path_out_of_cave)
-            except IndexError:
-                pass
+    #         try:
+    #             if '.' not in self.world_knowledge[self.world.agent_row+1][self.world.agent_col] and self.is_safe_move(self.world.agent_row+1, self.world.agent_col):
+    #                 if already_moved == False:
+    #                     if self.move('d'):
+    #                         already_moved = True
+    #                 # print(self.path_out_of_cave)
+    #         except IndexError:
+    #             pass
 
-            try:
-                if '.' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1] and self.is_safe_move(self.world.agent_row, self.world.agent_col-1):
-                    if already_moved == False:
-                        if self.move('l'):
-                            already_moved = True
-                    # print(self.path_out_of_cave)
-            except IndexError:
-                pass
+    #         try:
+    #             if '.' not in self.world_knowledge[self.world.agent_row][self.world.agent_col-1] and self.is_safe_move(self.world.agent_row, self.world.agent_col-1):
+    #                 if already_moved == False:
+    #                     if self.move('l'):
+    #                         already_moved = True
+    #                 # print(self.path_out_of_cave)
+    #         except IndexError:
+    #             pass
 
-            # print(already_moved)
+    #         # print(already_moved)
 
-            if already_moved == False:
-                self.go_back_one_tile()
+    #         if already_moved == False:
+    #             self.go_back_one_tile()
 
 
-            already_moved = False
+    #         already_moved = False
 
 
             """
