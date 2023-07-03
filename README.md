@@ -1,5 +1,9 @@
 # Wumpus World Simulation
 
+##Extra things to note : 
+
+In branch no_tkinter, you ay find a way to stop the popup window of tkinter input from keyboard by using tkinter with curses, or you may find some implementation with modules keyboard or pynput. Currently switching interest to tkinter branch. 
+
 ## About:
 
 Wumpus World is the representation of a simple world where an explorer searches a dark,
