@@ -1,7 +1,5 @@
 from tkinter import *
 
-
-
 class Keyboard_Input:
 
     #def __init__(self, master):
@@ -13,8 +11,14 @@ class Keyboard_Input:
         self.screen_width = self.root.winfo_screenwidth()
         self.screen_height = self.root.winfo_screenheight()
 
+        #setting window widths
+        self.window_width = 1
+        self.window_height = 1
+
         # Set the window's dimensions and position
-        self.root.geometry("300x200+{}+0".format(self.screen_width - 300))
+        self.window_x = self.window_width#self.screen_width - self.window_width
+        self.window_y = self.window_height#self.screen_height - self.window_height
+        self.root.geometry(f"{self.window_width}x{self.window_height}+{self.window_x}+{self.window_y}")
 
         self.key_input = StringVar()
         self.root.bind("<KeyPress>", self.on_key_press)
