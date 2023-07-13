@@ -23,6 +23,7 @@ class World:
         print(file_parser.gold)
         print(file_parser.pits)
         """
+
         self.num_rows = int(file_parser.row_col[0])
         self.num_cols = int(file_parser.row_col[1])
 
