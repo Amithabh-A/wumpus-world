@@ -1,6 +1,15 @@
 # Wumpus World Simulation
 
-##Extra things to note : 
+## Simulation : 
+For agent play, run command 
+
+    python agentgui.py
+
+For Humanplay, rum command 
+
+    python humangui.py
+
+## Extra things to note : 
 
 In branch no_tkinter, you ay find a way to stop the popup window of tkinter input from keyboard by using tkinter with curses, or you may find some implementation with modules keyboard or pynput. Currently switching interest to tkinter branch. 
 
