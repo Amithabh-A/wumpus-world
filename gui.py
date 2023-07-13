@@ -4,6 +4,7 @@ from world import World
 from keyboard_input import Keyboard_Input
 from grid_label import Grid_Label
 #import time
+global_key_input=None
 
 def solve_wumpus_world(master, world_file):
     
@@ -15,10 +16,19 @@ def solve_wumpus_world(master, world_file):
     
     while agent.exited == False:
         #agent.explore()
-
-        key = Keyboard_Input()
-        #print(key.get_key())
-        agent.move(key.get_key())
+        master.bind('<Left>', 
+                    lambda event: agent.move('l'))
+        master.bind('<Right>', 
+                    lambda event: agent.move('r'))
+        master.bind('<Up>', 
+                    lambda event: agent.move('u'))
+        master.bind('<Down>', 
+                    lambda event: agent.move('d'))
+        
+        #master.bind("<KeyPress>", pressed)
+        
+        agent.move(global_key_input)
+        
         agent.repaint_world()
 
         if agent.valid_exit() == True:
@@ -30,7 +40,7 @@ def solve_wumpus_world(master, world_file):
         # if agent.found_gold == True:
         #     agent.leave_cave()
         #break
-    
+        #initial()   
     print("You have exited with the gold!")
     agent.repaint_world()
     try:
@@ -38,10 +48,10 @@ def solve_wumpus_world(master, world_file):
     except ValueError:
         pass
     agent.repaint_world()
-
+    
 master = Tk()
 master.title("Wumpus World")
-
+key = Keyboard_Input(master)
 
 
 world = World()
