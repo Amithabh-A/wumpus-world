@@ -5,7 +5,7 @@ For agent play, run command
 
     python agentgui.py
 
-For Humanplay, rum command 
+For Humanplay, run command 
 
     python humangui.py
 
